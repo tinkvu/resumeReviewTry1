@@ -1,49 +1,37 @@
 {
-  "name": "qr-gpt",
-  "version": "0.1.0",
+  "name": "resume-feedback-app",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "eslint .",
     "format": "prettier --write ."
   },
   "dependencies": {
-    "@hookform/resolvers": "^3.3.1",
-    "@radix-ui/react-label": "^2.0.2",
-    "@radix-ui/react-slot": "^1.0.2",
-    "@tailwindcss/forms": "^0.5.6",
-    "@types/node": "20.6.2",
-    "@types/react": "18.2.21",
-    "@types/react-dom": "18.2.7",
-    "@upstash/ratelimit": "^0.4.4",
-    "@vercel/analytics": "^1.0.2",
-    "@vercel/blob": "^0.12.4",
-    "@vercel/kv": "^0.2.2",
-    "autoprefixer": "10.4.15",
-    "class-variance-authority": "^0.7.0",
-    "clsx": "^2.0.0",
-    "lucide-react": "^0.279.0",
-    "nanoid": "^5.0.1",
-    "next": "^13.5.2",
-    "next-plausible": "^3.11.3",
-    "postcss": "8.4.29",
-    "prettier": "^3.0.3",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "react-hook-form": "^7.46.1",
-    "react-hot-toast": "^2.4.1",
-    "replicate": "^0.18.0",
-    "tailwind-merge": "^1.14.0",
-    "tailwindcss": "3.3.3",
-    "tailwindcss-animate": "^1.0.7",
-    "typescript": "5.2.2",
-    "zod": "^3.22.2"
+    "next": "latest",
+    "react": "latest",
+    "react-dom": "latest",
+    "@vercel/kv": "latest", 
+    "typescript": "latest",
+    "gtts": "latest",  // If you are using gtts for text-to-speech
+    "pydub": "latest", // If you are using pydub for audio manipulation
+    "PyPDF2": "latest", // If you are using PyPDF2 for PDF processing
+    "python-docx": "latest" // If you are using python-docx for DOCX processing
   },
   "devDependencies": {
-    "@tailwindcss/typography": "^0.5.10",
-    "eslint": "8.49.0",
-    "eslint-config-next": "13.4.19"
+    "eslint": "latest",
+    "eslint-config-next": "latest",
+    "prettier": "latest",
+    "@types/react": "latest",
+    "@types/react-dom": "latest"
+  },
+  "eslintConfig": {
+    "extends": "next/core-web-vitals"
+  },
+  "prettier": {
+    "singleQuote": true,
+    "semi": false
   }
 }
