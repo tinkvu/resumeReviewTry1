@@ -3,15 +3,16 @@ import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 import Body from '@/components/Body';
 
-async function getAllKv(id: string) {
-  const data = await kv.hgetall<{
-    prompt: string;
-    image?: string;
-    website_url?: string;
-    model_latency?: string;
-  }>(id);
+interface ResumeData {
+  feedback: string;
+  audioUrl?: string;
+  jobRole?: string;
+  jobLevel?: string;
+}
 
-  return data;
+async function getResumeData(id: string): Promise<ResumeData | null> {
+  const data = await kv.hgetall<ResumeData>(id);
+  return data ? data : null; // Return null if no data found
 }
 
 export async function generateMetadata({
@@ -21,14 +22,14 @@ export async function generateMetadata({
     id: string;
   };
 }): Promise<Metadata | undefined> {
-  const data = await getAllKv(params.id);
+  const data = await getResumeData(params.id);
   if (!data) {
     return;
   }
 
-  const title = `QrGPT: ${data.prompt}`;
-  const description = `A QR code generated from qrGPT.io linking to: ${data.website_url}`;
-  const image = data.image || 'https://qrGPT.io/og-image.png';
+  const title = `Resume Feedback: ${data.jobRole}`;
+  const description = `Feedback for the role of ${data.jobRole} at the ${data.jobLevel} level.`;
+  const image = data.audioUrl || 'https://example.com/default-image.png'; // Replace with your default image
 
   return {
     title,
@@ -47,7 +48,7 @@ export async function generateMetadata({
       title,
       description,
       images: [image],
-      creator: '@nutlope',
+      creator: '@your_twitter_handle', // Update with your Twitter handle
     },
   };
 }
@@ -59,16 +60,17 @@ export default async function Results({
     id: string;
   };
 }) {
-  const data = await getAllKv(params.id);
+  const data = await getResumeData(params.id);
   if (!data) {
     notFound();
   }
+
   return (
     <Body
-      prompt={data.prompt}
-      imageUrl={data.image}
-      redirectUrl={data.website_url}
-      modelLatency={Number(data.model_latency)}
+      feedback={data.feedback}
+      audioUrl={data.audioUrl}
+      jobRole={data.jobRole}
+      jobLevel={data.jobLevel}
       id={params.id}
     />
   );
